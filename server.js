@@ -1,11 +1,13 @@
 import express from 'express';
+import connectDB from './conexao.js';
 const app = express();
-//const http = require('http');
+connectDB();
 
-app.get('/usuario', (req, res) => {
+
+
+app.get('/usuarios', (req, res) => {
     res.send('Okay, deu bom')
 });
-
 
 
 app.listen(3000, () => {
