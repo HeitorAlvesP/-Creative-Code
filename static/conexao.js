@@ -1,8 +1,10 @@
 import mongoose  from 'mongoose';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const connectDB = async () => {
     try {
-      const dbURI = 'mongodb+srv://heitor_dev:senha@clientes.xhdenmz.mongodb.net/?retryWrites=true&w=majority&appName=clientes';
+      const dbURI = process.env.DATABASE_URL;
 
       await mongoose.connect(dbURI);
 
