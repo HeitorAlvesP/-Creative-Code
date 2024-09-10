@@ -1,6 +1,8 @@
-import mongoose  from 'mongoose';
 import dotenv from 'dotenv';
+import mongoose  from 'mongoose';
+
 dotenv.config();
+
 
 const connectDB = async () => {
     try {
@@ -11,7 +13,7 @@ const connectDB = async () => {
       console.log('Conectado ao MongoDB Atlas');
     } catch (err) {
       console.error('Erro ao conectar ao MongoDB:', err);
-      process.exit(1); // Encerra o processo caso a conexão falhe
+      process.exit(1); 
     }
 
 };

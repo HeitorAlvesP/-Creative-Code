@@ -18,7 +18,6 @@ model Users {
   id        String    @id @default(auto()) @map("_id") @db.ObjectId
   nome      String
   email     String    @unique
-  data      DateTime
   password  String
 
 }

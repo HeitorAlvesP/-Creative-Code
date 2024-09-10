@@ -1,20 +1,34 @@
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient()
+
 import express from 'express';
+const app = express();
+
 import connectDB from './static/conexao.js';
 connectDB();
 
-const app = express();
 app.use(express.json())
 app.use(express.static('public'));
 
 const users = [];
 
-app.post('/usuarios', (req, res) => {
-    users.push(req.body)
-    
-    res.status(201).redirect('criar_conta.html')
-});
+app.post('/usuarios', async (req, res) => {
+    try {
+      const newUser = await prisma.users.create({  
+        data: {
+          email: req.body.email,
+          nome: req.body.nome,
+          password: req.body.password
+        }
+      });
+      res.status(201).json(newUser);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+})
+
 app.get('/usuarios', (req, res) => {
-    console.log(users);
     res.status(200).redirect('home.html')
 });
 
