@@ -10,10 +10,11 @@ const users = [];
 
 app.post('/usuarios', (req, res) => {
     users.push(req.body)
-    console.log(users);
+    
     res.status(201).redirect('criar_conta.html')
 });
 app.get('/usuarios', (req, res) => {
+    console.log(users);
     res.status(200).redirect('home.html')
 });
 
