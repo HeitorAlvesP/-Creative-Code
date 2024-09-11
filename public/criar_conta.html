@@ -19,16 +19,39 @@
 
             <div id="informaçõesCriar"> <!--começo da div informações-->
 
-                <form>
+                <form action="/criar_conta" method="POST">
                     
                     <b>Nome Completo:</b> <br>
                     <input type="text" id="nome" name="nome">
                    
                     <br><br><br>
                    
-                    <b>Data De nascimento:</b> <br>
-                    <input type="date" id="date" name="nome">
-                    <!-- <input type="date" id="data_nascimento" name="data_nascimento"> -->
+                   <!-- <b>CPF:</b> <br>
+                   <input type="text" i="cpf" name="cpf" maxlength="14" required>
+
+                   <script>
+                    document.addEventListener('DOMContentLoaded', function() {
+                      const cpfInput = document.getElementById('cpf');
+                  
+                      cpfInput.addEventListener('input', function(e) {
+                        let value = e.target.value.replace(/\D/g, ''); // Remove tudo que não é dígito
+                        if (value.length > 11) {
+                          value = value.slice(0, 11);
+                        }
+                        // Formata o valor no padrão XXX.XXX.XXX-XX
+                        if (value.length > 6) {
+                          value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+                        }
+                        if (value.length > 10) {
+                          value = value.replace(/(\d{3}\.\d{3})(\d{1,3})/, '$1.$2');
+                        }
+                        if (value.length > 12) {
+                          value = value.replace(/(\d{3}\.\d{3}\.\d{3})(\d{1,2})/, '$1-$2');
+                        }
+                        e.target.value = value;
+                      });
+                    });
+                  </script> -->
                    
                     <br><br><br>
                    
@@ -43,7 +66,7 @@
                     <br><br><br>
                    
                     <b>Confirmar senha:</b> <br>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="confirm_password" name="confirm_password">
                    
                     <br><br>
                    

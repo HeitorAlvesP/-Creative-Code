@@ -128,6 +128,20 @@ body{
         border-radius: 10px;
       }
 
+      input[type="confirm_password"] {
+        width: 400px;
+        padding: 8px;        
+        border: 2px solid #A9A9A9;
+        border-radius: 10px;
+      }
+
+      input[type="number"] {
+        width: 400px;
+        padding: 8px;        
+        border: 2px solid #A9A9A9;
+        border-radius: 10px;
+      }
+
       button{
         position: relative;
         left: 170px;
