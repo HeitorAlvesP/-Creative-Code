@@ -1,8 +1,6 @@
 import express from 'express';
 const app = express();
 
-import User from './static/create_user.js';
-
 import connectDB from './static/conexao.js';
 connectDB(); 
 
