@@ -1,22 +1,20 @@
 import express from 'express';
 const app = express();
 
+import User from './static/create_user.js';
+
 import connectDB from './static/conexao.js';
 connectDB(); 
 
-import { cria_conta } from './static/controllers/controllersCriaConta.js'; 
-
-
+import { cria_conta } from './static/controllers/controllersCriaConta.js';
+import { realiza_login } from './static/controllers/controllersLogin.js'; 
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })) 
 app.use(express.static('public'));
 
 
-app.get('/home', (req, res) => { 
-  res.status(200).redirect('home.html');
-});
-
+app.post('/login', realiza_login);
 app.post('/criar_conta', cria_conta);
 
 

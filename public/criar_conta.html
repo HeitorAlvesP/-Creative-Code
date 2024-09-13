@@ -12,7 +12,7 @@
 
     <body>
 
-        <a href="home.html" id="voltar"> <b>&#10232;</b> </a>
+        <a href="login.html" id="voltar"> <b>&#10232;</b> </a>
         <div id="principalCriar"> 
             
             <h1 class="centro">Criar conta</h1>
@@ -107,7 +107,7 @@
           const result = await response.json();
 
           if (response.ok) {
-            window.location.href = 'home.html'; 
+            window.location.href = 'login.html'; 
           } else {
             cpfError.textContent = result.error; 
             cpfError.style.display = 'block'; 

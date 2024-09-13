@@ -1,0 +1,77 @@
+<!doctype html>
+
+<html>
+
+    <head>
+
+        <title>Entrar</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" type="text/css" href="./style/style.css">
+
+    </head>
+
+    <body>
+
+        <div id="principalEntrar">
+            <h1 class="centro">Entrar</h1>
+
+            <div id="informaçõesEntrar">
+
+                <form action="/login" method="POST">
+                    <b>E-mail</b>: 
+                    <input type="email" id="email" name="email">
+                    <br> <br> <br>
+                    <b>Senha:</b> 
+                    <input type="password" id="password" name="password">
+                    <br><br><br>
+                    <button type="submit">Entrar</button>
+                    <br><br>
+                    <div id="errorMessage" style="color: red; display: none;"></div>
+                </form>
+            </div>
+
+            <div id="criar">
+                <b>Não possui uma conta? <a href="criar_conta.html">crie aqui</a></b>
+            </div> 
+        
+        </div>
+
+    </body>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('loginForm');
+            const errorMessage = document.getElementById('errorMessage');
+    
+            form.addEventListener('submit', async function(event) {
+                event.preventDefault(); 
+                const formData = new FormData(form);
+                const data = new URLSearchParams(formData).toString();
+    
+                try {
+                    const response = await fetch(form.action, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded',
+                        },
+                        body: data
+                    });
+    
+                    const result = await response.json();
+    
+                    if (response.ok) {
+                        window.location.href = 'pagina_dentro.html'; 
+                    } else {
+                        errorMessage.textContent = result.error;
+                        errorMessage.style.display = 'block';
+                    }
+                } catch (error) {
+                    console.error('Erro:', error);
+                    errorMessage.textContent = 'Erro ao processar o formulário.';
+                    errorMessage.style.display = 'block';
+                }
+            });
+        });
+        </script>
+
+</html>
