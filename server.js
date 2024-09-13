@@ -1,6 +1,3 @@
-import { PrismaClient } from '@prisma/client'; //isso aqui tendi nn kkj
-const prisma = new PrismaClient() //tem haver com banco online kkj
-
 import express from 'express'; //usando a blibliotaca de
 const app = express(); //express para fazer as rotas
 
@@ -9,7 +6,7 @@ connectDB();
 
 import User from './static/create_user.js'
 
-//import ValidaCPF from './static/valida_cpf.js';
+import ValidaCPF from './static/valida_cpf.js';
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })) 
@@ -41,15 +38,7 @@ app.post('/criar_conta', async (req, res) => {
 
       })
 
-      // const User = await prisma.users.create({  
-      //   data: {
-      //     email, //o email n pode ser repitido
-      //     nome,
-      //     password,
-      //     cpf
-      //   }
-      // });
-
+      await newUser.save();
       res.status(201).json(newUser);
     } catch (error) {
       console.error(error);

@@ -7,7 +7,5 @@ const UserSchema = new mongoose.Schema({
     cpf: { type: String, required: true, unique: true }
   });
 
-  const User = mongoose.model('User', UserSchema);
-    
-   //expostar a função para outros arquivos
+  const User = mongoose.model('User', UserSchema); 
   export default User;
