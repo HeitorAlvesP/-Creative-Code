@@ -5,39 +5,50 @@ import express from 'express'; //usando a blibliotaca de
 const app = express(); //express para fazer as rotas
 
 import connectDB from './static/conexao.js';
-connectDB(); //conexão do banco
+connectDB(); 
+
+import User from './static/create_user.js'
 
 //import ValidaCPF from './static/valida_cpf.js';
 
-app.use(express.json()) //para ler json
-app.use(express.urlencoded({ extended: true })) // para ler o html
-app.use(express.static('public')); //para usar seus aqruivos no front
+app.use(express.json())
+app.use(express.urlencoded({ extended: true })) 
+app.use(express.static('public')); 
 
-app.get('/home', (req, res) => { //pagin inicial
+app.get('/home', (req, res) => { 
   res.status(200).redirect('home.html');
 });
 
-app.post('/criar_conta', async (req, res) => {  //essa serve para criar
+app.post('/criar_conta', async (req, res) => {  
     try {
-      const {email, nome, password, confirm_password} = req.body
+      const {email, nome, password, confirm_password, cpf} = req.body
 
       if (password !== confirm_password){
         return res.send.status(400).json({ error: "As senhas não coincidem" })
       }
 
-      // let validaCpf = new ValidaCPF(cpf)
-      // if(!validaCpf.valida()){
-      //   return res.send.status(400).json({ error: "CPF informado é invalido" })
-      // }
+      let validaCpf = new ValidaCPF(cpf)
+      if(!validaCpf.valida()){
+        return res.send.status(400).json({ error: "CPF informado é invalido" })
+      }
 
-      const newUser = await prisma.users.create({  
-        data: {
-          //cpf,    // o cpf n pode ser repitido
-          email, //o email n pode ser repitido
-          nome,
-          password,
-        }
-      });
+      const newUser = new User({
+
+        email: email,
+        nome: nome,
+        password: password,
+        cpf: cpf
+
+      })
+
+      // const User = await prisma.users.create({  
+      //   data: {
+      //     email, //o email n pode ser repitido
+      //     nome,
+      //     password,
+      //     cpf
+      //   }
+      // });
 
       res.status(201).json(newUser);
     } catch (error) {
