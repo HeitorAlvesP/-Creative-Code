@@ -1,55 +1,23 @@
-import express from 'express'; //usando a blibliotaca de
-const app = express(); //express para fazer as rotas
+import express from 'express';
+const app = express();
 
 import connectDB from './static/conexao.js';
 connectDB(); 
 
-import User from './static/create_user.js'
+import { cria_conta } from './static/controllers/controllersCriaConta.js'; 
 
-import ValidaCPF from './static/valida_cpf.js';
+
 
 app.use(express.json())
 app.use(express.urlencoded({ extended: true })) 
-app.use(express.static('public')); 
+app.use(express.static('public'));
+
 
 app.get('/home', (req, res) => { 
   res.status(200).redirect('home.html');
 });
 
-app.post('/criar_conta', async (req, res) => {  
-    try {
-      const {email, nome, password, confirm_password, cpf} = req.body
-
-      if (password !== confirm_password){
-        return res.send.status(400).json({ error: "As senhas não coincidem" })
-      }
-
-      let validaCpf = new ValidaCPF(cpf)
-      if(!validaCpf.valida()){
-        return res.send.status(400).json({ error: "CPF informado é invalido" })
-      }
-
-      const newUser = new User({
-
-        email: email,
-        nome: nome,
-        password: password,
-        cpf: cpf
-
-      })
-
-      await newUser.save();
-      res.status(201).json(newUser);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Internal Server Error' });
-    }
-});  //rota para criar
-
-
-
-
-
+app.post('/criar_conta', cria_conta);
 
 
 
