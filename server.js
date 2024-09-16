@@ -7,8 +7,7 @@ connectDB();
 import session from 'express-session';
 import authMiddleware from './authMiddleware.js';
 import { cria_conta } from './static/controllers/controllersCriaConta.js';
-import { realiza_login } from './static/controllers/controllersLogin.js'; 
-import path from 'path';
+import { realiza_login } from './static/controllers/controllersLogin.js';
 
 
 app.use(express.json())
