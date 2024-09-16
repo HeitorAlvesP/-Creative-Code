@@ -11,6 +11,9 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true })) 
 app.use(express.static('public'));
 
+app.get('/index_black-jack',(req, res) => {
+  res.redirect('/index_black-jack')
+});
 
 app.post('/login', realiza_login);
 app.post('/criar_conta', cria_conta);
