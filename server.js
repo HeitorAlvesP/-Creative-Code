@@ -94,7 +94,3 @@ app.listen(3000, () => {console.log('Rodando em porta 3000')});
 //                                                     //usuarios 
 //     res.status(200).json(users);                    //já cadastrados      
 // });
-
-
-
- 
