@@ -1,5 +1,5 @@
 body {
-    background-color: #483D8B;
+    background-color: white;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -78,7 +78,7 @@ body {
     margin-left: 270px;
     padding: 90px 20px 20px;
     flex-grow: 1;
-    color: white;
+    color: rgb(0, 0, 0);
     text-align: center;
   }
   

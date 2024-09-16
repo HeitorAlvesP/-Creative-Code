@@ -6,7 +6,9 @@ async function realiza_login (req, res){
     try {
       const existingUser = await User.findOne({ email: email, password: password });
       if (existingUser) {
-        return res.status(200).redirect('home.html');
+        req.session.loggedIn = true;
+        req.session.userId = existingUser._id;
+        return res.status(200).redirect('/home');
       } else {
         return res.status(401).json({ error: 'Usuário ou senha inválidos' });
       }
