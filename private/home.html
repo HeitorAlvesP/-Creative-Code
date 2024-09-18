@@ -20,7 +20,7 @@
             <li><a href="index_black-jack.html">black-jack</a></li>
             <li><a href="#">Perfil</a></li>
             <li><a href="#">Configurações</a></li>
-            <li id="admin-menu" style="display: none;"><a href="./adm_menu/adm_menu.html">Configurações De Administrador</a></li>
+            <li id="admin-menu" style="display: none;"><a href="adm_menu.html">Configurações De Administrador</a></li>
             <li><a href="#">Relatórios</a></li>
             <li><a href="#">Ajuda</a></li>
         </ul>
@@ -34,7 +34,7 @@
 
     <script>
         // Fazer uma requisição para o backend para verificar o status do usuário
-        fetch('/menu')
+        fetch('/adm_menu')
             .then(response => response.json())
             .then(data => {
                 console.log('Dados recebidos:', data);  // Verifique o que está sendo retornado

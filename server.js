@@ -28,7 +28,7 @@ app.get('/home', authMiddleware, (req, res) => {
   res.sendFile('home.html', { root: ('private') })
 })
 
-app.get('home/menu', authMiddleware, async (req, res) => {
+app.get('/adm_menu', authMiddleware, async (req, res) => {
   const userId = req.session.userId;
 
   try {
@@ -37,7 +37,7 @@ app.get('home/menu', authMiddleware, async (req, res) => {
       return res.status(404).json({ error: 'Usuário não encontrado' });
     }
 
-    res.sendFile('adm_menu.html', { root: ('private') });
+    res.json({ isAdmin: user.adm === 1 });
   } catch (error) {
     return res.status(500).json({ error: 'Erro ao buscar usuário' });
   }
