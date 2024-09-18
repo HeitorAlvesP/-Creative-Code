@@ -28,20 +28,24 @@ app.get('/home', authMiddleware, (req, res) => {
   res.sendFile('home.html', { root: ('private') })
 })
 
-app.get('/adm_menu', authMiddleware, async (req, res) => {
-  const userId = req.session.userId;
+app.get('/adm-menu', (req, res) => {
+  res.redirect(302, 'adm_menu.html')
+})
 
-  try {
-    const user = await User.findById(userId);
-    if (!user) {
-      return res.status(404).json({ error: 'Usuário não encontrado' });
-    }
+// app.get('/adm_menu', authMiddleware, async (req, res) => {
+//   const userId = req.session.userId;
 
-    res.json({ isAdmin: user.adm === 1 });
-  } catch (error) {
-    return res.status(500).json({ error: 'Erro ao buscar usuário' });
-  }
-});
+//   try {
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ error: 'Usuário não encontrado' });
+//     }
+
+//     res.json({ isAdmin: user.adm === 1 });
+//   } catch (error) {
+//     return res.status(500).json({ error: 'Erro ao buscar usuário' });
+//   }
+// });
 
 app.post('/login', realiza_login);
 app.post('/criar_conta', cria_conta);
