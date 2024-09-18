@@ -28,18 +28,27 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  
-  button {
-    background-color: #483D8B;
-    border: 1px #483D8B solid;
-    color: black;
-    width: 100px;
-    padding: 8px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px #483D8B;
-    cursor: pointer;
-    align-items: center;
-  }
+  justify-content: center; /* Centraliza o conteúdo verticalmente */
+  min-height: 200px; /* Ajuste conforme necessário */
+}
+
+#informaçõesEntrar form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+button {
+  background-color: #483D8B;
+  border: 1px #483D8B solid;
+  color: black;
+  width: 100px;
+  padding: 8px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px #483D8B;
+  cursor: pointer;
+  margin-top: 20px; /* Adiciona espaço acima do botão, se necessário */
+}
 
   /*Estilo das caixas*/
   input[type="email"], input[type="text"], input[type="password"], input[type="date"] {

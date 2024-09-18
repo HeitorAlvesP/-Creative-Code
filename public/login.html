@@ -18,16 +18,18 @@
             <div id="informaçõesEntrar">
 
                 <form action="/login" method="POST">
-                    <b>E-mail</b>: 
-                    <input type="email" id="email" name="email">
-                    <br> <br> <br>
-                    <b>Senha:</b> 
-                    <input type="password" id="password" name="password">
-                    <br><br><br>
+                    <div class="input-container">
+                        <b>E-mail</b>
+                        <input type="email" id="email" name="email">
+                    </div>
+                    <div class="input-container">
+                        <b>Senha</b>
+                        <input type="password" id="password" name="password">
+                    </div>
                     <button type="submit">Entrar</button>
-                    <br><br>
                     <div id="errorMessage" style="color: red; display: none;"></div>
                 </form>
+                
             </div>
 
             <div id="criar">
