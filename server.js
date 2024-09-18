@@ -28,6 +28,21 @@ app.get('/home', authMiddleware, (req, res) => {
   res.sendFile('home.html', { root: ('private') })
 })
 
+app.get('home/menu', authMiddleware, async (req, res) => {
+  const userId = req.session.userId;
+
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(404).json({ error: 'Usuário não encontrado' });
+    }
+
+    res.sendFile('adm_menu.html', { root: ('private') });
+  } catch (error) {
+    return res.status(500).json({ error: 'Erro ao buscar usuário' });
+  }
+});
+
 app.post('/login', realiza_login);
 app.post('/criar_conta', cria_conta);
 
