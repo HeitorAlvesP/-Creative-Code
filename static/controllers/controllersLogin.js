@@ -1,4 +1,4 @@
-import User from '../create_user.js';
+import User from '../model/create_user.js';
 
 async function realiza_login (req, res){
     const { email, password } = req.body; 

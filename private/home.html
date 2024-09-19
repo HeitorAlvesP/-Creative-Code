@@ -17,7 +17,7 @@
 
     <!-- Menu lateral -->
     <nav>
-        <ul>
+        <ul id="menu">
             <li><a href="index_black-jack.html">black-jack</a></li>
             <li><a href="#">double</a></li>
             <li><a href="#">crash</a></li>
@@ -27,7 +27,7 @@
             <li><a href="#">Relatórios</a></li>            
             <li><a href="#">Ajuda</a></li>
             <li><a href="#">Configurações</a></li>
-            <li><a href="adm_menu.html">Config ADM</a></li>
+            <li><a href="#">VAZIO TESTE</a></li>
         </ul>
     </nav>
 
@@ -37,22 +37,18 @@
         <p>Aqui é onde o conteúdo principal do site vai aparecer. Utilize os menus ao lado para navegar entre as opções e visualizar os dados disponíveis.</p>
     </main>
 
-     <!-- <script>
-        // Fazer uma requisição para o backend para verificar o status do usuário
-        fetch('/adm_menu')
-            .then(response => response.json())
-            .then(data => {
-                console.log('Dados recebidos:', data);  // Verifique o que está sendo retornado
-                if (data.isAdmin) {
-                    console.log('Usuário é admin, mostrando menu.');
-                    document.getElementById('admin-menu').style.display = 'block';
-                } else {
-                    console.log('Usuário não é admin, menu oculto.');
-                    document.getElementById('admin-menu').style.display = 'none';
-                }
-            })
-            .catch(error => console.error('Erro ao verificar status de administrador:', error));
-    </script> -->
+    <script>
+        fetch('/user/status')
+          .then(response => response.json())
+          .then(data => {
+            if (data.adm === 1) {
+              const admMenu = document.createElement('li');
+              admMenu.innerHTML = '<a href="adm_menu.html">Config ADM</a>';
+              document.getElementById('menu').appendChild(admMenu);
+            }
+          })
+          .catch(error => console.error('Erro ao buscar status de administrador:', error));
+      </script>
 
 </body>
 </html>

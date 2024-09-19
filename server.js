@@ -1,13 +1,14 @@
 import express from 'express';
 const app = express();
 
-import connectDB from './static/conexao.js';
+import connectDB from './static/model/conexao.js';
 connectDB(); 
 
 import session from 'express-session';
 import authMiddleware from './authMiddleware.js';
 import { cria_conta } from './static/controllers/controllersCriaConta.js';
 import { realiza_login } from './static/controllers/controllersLogin.js';
+import User from './static/model/create_user.js'
 
 
 app.use(express.json())
@@ -28,24 +29,24 @@ app.get('/home', authMiddleware, (req, res) => {
   res.sendFile('home.html', { root: ('private') })
 })
 
-app.get('/adm-menu', (req, res) => {
-  res.redirect(302, 'adm_menu.html')
+app.get('/adm-menu', authMiddleware, (req, res) => {
+  res.redirect(302, 'adm_menu.html');
+});
+
+app.get('/user/status', (req, res) => {
+  if (!req.session.userId) {
+    return res.status(401).json({ message: 'Usuário não autenticado' });
+  }
+
+
+  User.findById(req.session.userId, (err, user) => {
+    if (err || !user) {
+      return res.status(500).json({ message: 'Erro ao buscar o usuário' });
+    }
+    res.json({ adm: user.adm });
+  });
 })
 
-// app.get('/adm_menu', authMiddleware, async (req, res) => {
-//   const userId = req.session.userId;
-
-//   try {
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ error: 'Usuário não encontrado' });
-//     }
-
-//     res.json({ isAdmin: user.adm === 1 });
-//   } catch (error) {
-//     return res.status(500).json({ error: 'Erro ao buscar usuário' });
-//   }
-// });
 
 app.post('/login', realiza_login);
 app.post('/criar_conta', cria_conta);
@@ -77,7 +78,20 @@ app.listen(3000, () => {console.log('Rodando em porta 3000')});
 
 
 
+// app.get('/adm_menu', authMiddleware, async (req, res) => {
+//   const userId = req.session.userId;
 
+//   try {
+//     const user = await User.findById(userId);
+//     if (!user) {
+//       return res.status(404).json({ error: 'Usuário não encontrado' });
+//     }
+
+//     res.json({ isAdmin: user.adm === 1 });
+//   } catch (error) {
+//     return res.status(500).json({ error: 'Erro ao buscar usuário' });
+//   }
+// });
 
 
 
