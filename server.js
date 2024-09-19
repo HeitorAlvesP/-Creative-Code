@@ -8,7 +8,8 @@ import session from 'express-session';
 import authMiddleware from './authMiddleware.js';
 import { cria_conta } from './static/controllers/controllersCriaConta.js';
 import { realiza_login } from './static/controllers/controllersLogin.js';
-import User from './static/model/create_user.js'
+import { bloqueia_menu } from './static/controllers/controlersUserStatus.js';
+
 
 
 app.use(express.json())
@@ -33,24 +34,7 @@ app.get('/adm-menu', authMiddleware, (req, res) => {
   res.redirect(302, 'adm_menu.html');
 });
 
-app.get('/user/status', async (req, res) => {
-  if (!req.session.userId) {
-    return res.status(401).json({ message: 'Usuário não autenticado' });
-  }
-
-  try {
-    const user = await User.findById(req.session.userId);
-
-    if (!user) {
-      return res.status(404).json({ message: 'Usuário não encontrado' });
-    }
-
-    res.json({ adm: user.adm });
-  } catch (err) {
-    return res.status(500).json({ message: 'Erro ao buscar o usuário', error: err.message });
-  }
-});
-
+app.get('/user/status', bloqueia_menu);
 
 app.post('/login', realiza_login);
 app.post('/criar_conta', cria_conta);
