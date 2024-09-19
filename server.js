@@ -1,20 +1,17 @@
 import express from 'express';
-const app = express();
-
 import connectDB from './static/model/conexao.js';
-connectDB(); 
-
 import session from 'express-session';
 import authMiddleware from './authMiddleware.js';
-import { cria_conta } from './static/controllers/controllersCriaConta.js';
-import { realiza_login } from './static/controllers/controllersLogin.js';
-import { bloqueia_menu } from './static/controllers/controlersUserStatus.js';
+import {cria_conta}from'./static/controllers/controllersCriaConta.js';
+import { realiza_login }from'./static/controllers/controllersLogin.js';
+import {bloqueia_menu}from'./static/controllers/controlersUserStatus.js';
 
+const app = express();
+connectDB();  
 
-
+app.use(express.static('public'));
 app.use(express.json())
-app.use(express.urlencoded({ extended: true })) 
-
+app.use(express.urlencoded({ extended: true }))
 app.use(session({
   secret: 'keyboard cat',
   resave: false,
@@ -22,24 +19,22 @@ app.use(session({
   cookie: { secure: process.env.NODE_ENV === 'production' }
 }))
 
+
 app.get('/index_black-jack',(req, res) => {
   res.redirect(302, '/index_black-jack')
 });
-
 app.get('/home', authMiddleware, (req, res) => {
   res.sendFile('home.html', { root: ('private') })
 })
-
 app.get('/adm-menu', authMiddleware, (req, res) => {
   res.redirect(302, 'adm_menu.html');
 });
-
 app.get('/user/status', bloqueia_menu);
+
 
 app.post('/login', realiza_login);
 app.post('/criar_conta', cria_conta);
 
-app.use(express.static('public'));
 
 app.listen(3000, () => {console.log('Rodando em porta 3000')});
 
@@ -61,25 +56,6 @@ app.listen(3000, () => {console.log('Rodando em porta 3000')});
 
 
 
-
-
-
-
-
-// app.get('/adm_menu', authMiddleware, async (req, res) => {
-//   const userId = req.session.userId;
-
-//   try {
-//     const user = await User.findById(userId);
-//     if (!user) {
-//       return res.status(404).json({ error: 'Usuário não encontrado' });
-//     }
-
-//     res.json({ isAdmin: user.adm === 1 });
-//   } catch (error) {
-//     return res.status(500).json({ error: 'Erro ao buscar usuário' });
-//   }
-// });
 
 
 

@@ -46,3 +46,33 @@ class ValidaCPF{
 }
 
 export default ValidaCPF;
+
+
+
+
+
+// <!-- <div id="cpfError" style="color: red; display: none;"></div>     required-->
+
+                  
+//                    <!-- <script>
+//                     document.addEventListener('DOMContentLoaded', function() {
+//                       const cpfInput = document.getElementById('cpf');
+                  
+//                       cpfInput.addEventListener('input', function(e) {
+//                         let value = e.target.value.replace(/\D/g, '');
+//                       if (value.length > 11) {
+//                           value = value.slice(0, 11);
+//                         }
+//                         if (value.length > 6) {
+//                           value = value.replace(/(\d{3})(\d{1,3})/, '$1.$2');
+//                         }
+//                         if (value.length > 10) {
+//                           value = value.replace(/(\d{3}\.\d{3})(\d{1,3})/, '$1.$2');
+//                         }
+//                         if (value.length > 12) {
+//                           value = value.replace(/(\d{3}\.\d{3}\.\d{3})(\d{1,2})/, '$1-$2');
+//                         }
+//                         e.target.value = value;
+//                       });
+//                     });
+//                   </script>  -->

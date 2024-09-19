@@ -1,5 +1,5 @@
 import User from '../model/create_user.js';
-import ValidaCPF from '../valida_cpf.js';
+import ValidaCPF from '../../public/js/valida_cpf.js';
 
 async function  cria_conta(req, res){  
     try {

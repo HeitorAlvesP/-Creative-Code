@@ -1,6 +1,8 @@
+import ValidaCPF from "./valida_cpf";
+
 class ValidaFormulario {
     constructor() {
-        this.formulario = document.querySelector('.formulario');
+        this.formulario = document.querySelector('form');
         this.evento();
     }
 
@@ -13,23 +15,55 @@ class ValidaFormulario {
     handleSubmit(e) {
         e.preventDefault();
         const camposSaoValidos = this.camposSaoValidos(); 
-        const senhasvalidas = this.senhasSaoValidas();
+        const senhasSaoValidas = this.senhasSaoValidas();
 
-        if (camposSaoValidos && senhasvalidas) {
-            alert('Formulário enviado');
-            this.formulario.submit();
+        if (camposSaoValidos && senhasSaoValidas) {
+            this.enviarFormulario();
+        }
+    }
+
+    async enviarFormulario() {
+        const formData = new FormData(this.formulario);
+        const data = new URLSearchParams(formData).toString();
+        const cpfError = document.getElementById('cpfError');
+
+        try {
+            const response = await fetch(this.formulario.action, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: data
+            });
+
+            const result = await response.json();
+
+            if (response.ok) {
+                window.location.href = 'login.html'; 
+            } else {
+                if (cpfError) {
+                    cpfError.textContent = result.error || 'Erro ao processar o formulário.';
+                    cpfError.style.display = 'block';
+                }
+            }
+        } catch (error) {
+            console.error('Erro:', error);
+            if (cpfError) {
+                cpfError.textContent = 'Erro ao processar o formulário.';
+                cpfError.style.display = 'block';
+            }
         }
     }
 
     senhasSaoValidas() {
         let valid = true;
-        const senha = this.formulario.querySelector('.senha');
-        const repetirSenha = this.formulario.querySelector('.repetir-senha');
+        const senha = this.formulario.querySelector('#password'); 
+        const repetirSenha = this.formulario.querySelector('#confirm_password'); 
 
         if (senha.value !== repetirSenha.value) {
             valid = false;
-            this.criaErro(senha, 'Os campos senha e repetir senha precisam ser iguais');
-            this.criaErro(repetirSenha, 'Os campos senha e repetir senha precisam ser iguais');
+            this.criaErro(senha, 'Campos de Senhas não coincidem');
+            this.criaErro(repetirSenha, 'Campos de Senhas não coincidem');
         }
 
         if (senha.value.length < 6 || senha.value.length > 12) {
@@ -44,21 +78,27 @@ class ValidaFormulario {
     camposSaoValidos() {
         let valid = true;
 
-        // Remove mensagens de erro anteriores
         for (let errorText of this.formulario.querySelectorAll('.error-text')) {
             errorText.remove();
         }
 
-        for (let campo of this.formulario.querySelectorAll('.validar')) {
-            const label = campo.previousElementSibling.innerText;
+        const campos = this.formulario.querySelectorAll('input'); 
+        for (let campo of campos) {
+            const label = campo.previousElementSibling ? campo.previousElementSibling.innerText : '';
 
             if (!campo.value) {
                 this.criaErro(campo, `"${label}" não pode estar em branco`);
                 valid = false;
             }
 
-            if (campo.classList.contains('cpf')) {
-                if (!this.validaCPF(campo)) valid = false;
+            // Validação de CPF
+            if (campo.id === 'cpf') {
+                console.log('Validando CPF:', campo.value); // Adicionado para depuração
+                const cpf = new ValidaCPF(campo.value);
+                if (!cpf.valida()) {
+                    this.criaErro(campo, 'CPF inválido');
+                    valid = false;
+                }
             }
         }
 
@@ -73,7 +113,6 @@ class ValidaFormulario {
     }
 }
 
-// Instanciando a validação ao carregar a página
 document.addEventListener('DOMContentLoaded', function() {
     const valida = new ValidaFormulario();
 });
