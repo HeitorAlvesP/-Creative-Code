@@ -1,118 +1,114 @@
-import ValidaCPF from "./valida_cpf";
-
-class ValidaFormulario {
-    constructor() {
-        this.formulario = document.querySelector('form');
+class ValidaFormulario{
+    constructor(){
+        this.formulario = document.querySelector('.formulario')
         this.evento();
     }
 
-    evento() {
-        this.formulario.addEventListener('submit', e => {
+
+    evento(){
+        this.formulario.addEventListener('submit', e =>{
             this.handleSubmit(e);
         });
     }
 
-    handleSubmit(e) {
+
+
+    handleSubmit(e){
         e.preventDefault();
         const camposSaoValidos = this.camposSaoValidos(); 
-        const senhasSaoValidas = this.senhasSaoValidas();
+        const senhasvalidas = this.senhasSaoValidas();
 
-        if (camposSaoValidos && senhasSaoValidas) {
-            this.enviarFormulario();
+        if(camposSaoValidos && senhasvalidas){
+            alert('formulario enviado')
+            this.formulario.submit();
         }
     }
 
-    async enviarFormulario() {
-        const formData = new FormData(this.formulario);
-        const data = new URLSearchParams(formData).toString();
-        const cpfError = document.getElementById('cpfError');
-
-        try {
-            const response = await fetch(this.formulario.action, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/x-www-form-urlencoded',
-                },
-                body: data
-            });
-
-            const result = await response.json();
-
-            if (response.ok) {
-                window.location.href = 'login.html'; 
-            } else {
-                if (cpfError) {
-                    cpfError.textContent = result.error || 'Erro ao processar o formulário.';
-                    cpfError.style.display = 'block';
-                }
-            }
-        } catch (error) {
-            console.error('Erro:', error);
-            if (cpfError) {
-                cpfError.textContent = 'Erro ao processar o formulário.';
-                cpfError.style.display = 'block';
-            }
-        }
-    }
-
-    senhasSaoValidas() {
+    senhasSaoValidas(){
         let valid = true;
-        const senha = this.formulario.querySelector('#password'); 
-        const repetirSenha = this.formulario.querySelector('#confirm_password'); 
 
-        if (senha.value !== repetirSenha.value) {
+        const senha = this.formulario.querySelector('#password')
+        const repetirSenha = this.formulario.querySelector('#confirm_password')
+
+        if(senha.value !== repetirSenha.value){
             valid = false;
-            this.criaErro(senha, 'Campos de Senhas não coincidem');
-            this.criaErro(repetirSenha, 'Campos de Senhas não coincidem');
+            this.criaErro(senha, 'Campos senha e repetir senha precia ser iguais')
+            this.criaErro(repetirSenha, 'Campos senha e repetir senha precia ser iguais')
         }
 
-        if (senha.value.length < 6 || senha.value.length > 12) {
-            valid = false;
-            this.criaErro(senha, 'A senha precisa ter entre 6 e 12 caracteres');
-            this.criaErro(repetirSenha, 'A senha precisa ter entre 6 e 12 caracteres');
+        if(senha.value.length < 6 || senha.value.length > 12){
+            valid = false
+            this.criaErro(senha, 'Senha precisa conter entre 6 e 12 caracteres')
+            this.criaErro(repetirSenha, 'Senha precisa conter entre 6 e 12 caracteres')
         }
 
         return valid;
     }
 
-    camposSaoValidos() {
+    camposSaoValidos(){
         let valid = true;
 
-        for (let errorText of this.formulario.querySelectorAll('.error-text')) {
+        for(let errorText of this.formulario.querySelectorAll('.error-text')) {
             errorText.remove();
         }
 
-        const campos = this.formulario.querySelectorAll('input'); 
-        for (let campo of campos) {
-            const label = campo.previousElementSibling ? campo.previousElementSibling.innerText : '';
+        for(let campo of this.formulario.querySelectorAll('.validar')){
+            const label = campo.previousElementSibling.innerText;
 
-            if (!campo.value) {
-                this.criaErro(campo, `"${label}" não pode estar em branco`);
-                valid = false;
+            if(!campo.value){
+                this.criaErro(campo, `"${label}" Não pode estar em branco`)
+                valid = false
             }
 
-            // Validação de CPF
-            if (campo.id === 'cpf') {
-                console.log('Validando CPF:', campo.value); // Adicionado para depuração
-                const cpf = new ValidaCPF(campo.value);
-                if (!cpf.valida()) {
-                    this.criaErro(campo, 'CPF inválido');
-                    valid = false;
-                }
+            if(campo.classList.contains('cpf')){
+                if(!this.validaCPF(campo)) valid = false;
+            }
+
+            if(campo.classList.contains('usuario')){
+                if(!this.validaUser(campo)) valid = false;
             }
         }
 
         return valid;
     }
 
-    criaErro(campo, msg) {
+
+    validaCPF(campo){
+        const cpf = new ValidaCPF(campo.value)
+
+        if(!cpf.valida()){
+            this.criaErro(campo, 'CPF inválido.');
+            return false
+        }
+
+        return true;
+    }
+
+
+    validaUser(campo){
+        const usuario = campo.value;
+        let valid = true;
+
+        if(usuario.length < 3 || usuario.length > 12){
+            this.criaErro(campo, 'Usuário deverá ter entre 3 e 12 caracteres')
+            valid = false
+        }
+
+        if(!usuario.match(/^[a-zA-Z0-9]+$/g)){
+            this.criaErro(campo, 'Usuário deverá ter entre 3 e 12 caracteres')
+            valid = false
+        }
+
+        return valid;  
+    }
+
+
+    criaErro(campo, msg){
         const div = document.createElement('div');
         div.innerHTML = msg;
-        div.classList.add('error-text');
+        div.classList.add('error-text')
         campo.insertAdjacentElement('afterend', div);
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const valida = new ValidaFormulario();
-});
+const valida = new ValidaFormulario();

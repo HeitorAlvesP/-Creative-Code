@@ -27,7 +27,7 @@
                     <br><br><br>
                    
                   
-                    <b>CPF:</b> <br>
+                   <b>CPF:</b> <br>
                    <input type="text" id="cpf" name="cpf" maxlength="14">
                    <div id="cpfError" style="color: red; display: none;"></div>  
                    
@@ -58,7 +58,7 @@
 
     </body>
 
-  <script>
+  <!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
       const form = document.querySelector('form');
       const cpfInput = document.getElementById('cpf');
@@ -70,7 +70,7 @@
         const formData = new FormData(form);
         const data = new URLSearchParams(formData).toString();
 
-        try {
+        // try {
           const response = await fetch(form.action, {
             method: 'POST',
             headers: {
@@ -81,20 +81,20 @@
 
           const result = await response.json();
 
-          if (response.ok) {
-            window.location.href = 'login.html'; 
-          } else {
-            cpfError.textContent = result.error; 
-            cpfError.style.display = 'block'; 
-          }
-        } catch (error) {
-          console.error('Erro:', error);
-          cpfError.textContent = 'Erro ao processar o formulário.';
-          cpfError.style.display = 'block';
-        }
+        //   if (response.ok) {
+        //     window.location.href = 'login.html'; 
+        //   } else {
+        //     cpfError.textContent = result.error; 
+        //     cpfError.style.display = 'block'; 
+        //   }
+        // } catch (error) {
+        //   console.error('Erro:', error);
+        //   cpfError.textContent = 'Erro ao processar o formulário.';
+        //   cpfError.style.display = 'block';
+        // }
       });
     });
   </script>
-  <script type="module" src="./js/ValidaForm.js"></script>
+  <script type="module" src="./js/ValidaForm.js"></script> -->
 
 </html>
