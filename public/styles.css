@@ -1,0 +1,46 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: #f4f4f4;
+}
+
+.container {
+    max-width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    margin: 10px;
+    cursor: pointer;
+}
+
+button:disabled {
+    background-color: grey;
+    cursor: not-allowed;
+}
+
+input {
+    padding: 10px;
+    margin-top: 10px;
+    width: 50px;
+    text-align: center;
+}
+
+#cardDisplay {
+    margin-top: 20px;
+}
+
+.card {
+    display: inline-block;
+    margin: 10px;
+}

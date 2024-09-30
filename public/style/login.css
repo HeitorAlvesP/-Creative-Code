@@ -1,0 +1,95 @@
+body {
+    background-color: #483D8B;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: #231e44;
+    color: white;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    z-index: 1000;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  header h1 {
+    display: flex;
+    position: relative;
+    left: 600px;
+    font-size: 24px;
+    color: white;
+  }
+
+  #principalEntrar{
+    font-size: 1em;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    width: 700px;
+    height: auto;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  #informaçõesEntrar {
+    font-size: 1.2em;
+    width: 500px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centraliza o conteúdo verticalmente */
+    min-height: 200px; /* Ajuste conforme necessário */
+  }
+  
+  #informaçõesEntrar form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+    /*Estilo das caixas*/
+    input[type="email"], input[type="password"]{
+      width: 400px;
+      padding: 8px;
+      border: 2px solid #A9A9A9;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+  
+  button {
+    background-color: #483D8B;
+    border: 1px #483D8B solid;
+    color: white;
+    width: 100px;
+    padding: 8px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px #483D8B;
+    cursor: pointer;
+    margin-top: 20px;
+  }
+  
+  #criar {
+    text-align: center;
+    a{
+      color: #483D8B;
+  }
+  }
+  
+  .centro {
+    text-align: center;
+    padding: 15px;
+  }
+  
