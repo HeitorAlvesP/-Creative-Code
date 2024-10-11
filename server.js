@@ -20,7 +20,7 @@ app.use(session({
 }))
 
 
-app.get('/index_black-jack',(req, res) => {
+app.get('/home/index_black-jack',(req, res) => {
   res.redirect(302, '/index_black-jack')
 });
 app.get('/home', authMiddleware, (req, res) => {
