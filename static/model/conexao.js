@@ -1,20 +1,28 @@
-import dotenv from 'dotenv'; //arquivo de segurança para n ir o link 
-import mongoose  from 'mongoose';//do banco para o git 
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import Database from 'better-sqlite3';
 
-dotenv.config(); //sei nn kkkj só sei q funciona
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
+// Defina o caminho do banco de dados
+const dbPath = path.join(__dirname, '../database.sqlite');
 
-const connectDB = async () => { //funcção para conectar no banco de dados
-    try {
-      const dbURI = process.env.DATABASE_URL; //variavel que está no arquivo
-      await mongoose.connect(dbURI);
+// Verifica se a pasta existe, caso contrário, cria a pasta
+const directory = path.dirname(dbPath);
+if (!fs.existsSync(directory)) {
+  fs.mkdirSync(directory, { recursive: true }); // Cria a pasta se não existir
+}
 
-      console.log('Conectado ao MongoDB Atlas');
-    } catch (err) {
-      console.error('Erro ao conectar ao MongoDB:', err);
-      process.exit(1); 
-    }
+// Cria a conexão com o banco de dados
+const db = new Database(dbPath);
 
+// Função para retornar a conexão
+const connectDB = () => {
+  console.log("Conectado ao SQLite");
+  return db;
 };
 
+// Exporta a função de conexão
 export default connectDB;
