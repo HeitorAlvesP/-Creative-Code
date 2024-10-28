@@ -7,7 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 // Defina o caminho do banco de dados
-const dbPath = path.join(__dirname, '../database.sqlite');
+const dbPath = path.join(__dirname, './database.sqlite');
 
 // Verifica se a pasta existe, caso contrário, cria a pasta
 const directory = path.dirname(dbPath);
@@ -24,5 +24,5 @@ const connectDB = () => {
   return db;
 };
 
-// Exporta a função de conexão
-export default connectDB;
+// Exporta a função de conexão e a instância do banco de dados
+export { connectDB, db };

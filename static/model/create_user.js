@@ -28,20 +28,32 @@ const insertUser = (db, userData) => {
 };
 
 // Função para buscar um usuário pelo email
-const getUserByEmail = (db, email) => {
+export const getUserByEmail = (db, email) => {
   const query = `SELECT * FROM users WHERE email = ?`;
   return db.prepare(query).get(email); // Retorna um único usuário
 };
 
+// Função para buscar um usuário pelo CPF
+export const getUserByCpf = (db, cpf) => {
+  try {
+    const query = `SELECT * FROM users WHERE cpf = ?`;
+    return db.prepare(query).get(cpf) || null;
+  } catch (error) {
+    console.error("Erro ao buscar CPF:", error);
+    return null;
+  }
+};
+
 // Exemplo de uso para inicializar o banco de dados
-const db = new Database('../database.sqlite');
-createUsersTable(db);
+const db = new Database('./database.sqlite');
+// createUsersTable(db);
 
 // Agrupa e exporta as funções
 const create_user = {
   createUsersTable,
   insertUser,
   getUserByEmail,
+  getUserByCpf,
   db // Exporta o banco de dados também para reuso
 };
 

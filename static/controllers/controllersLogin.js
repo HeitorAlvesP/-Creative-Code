@@ -1,7 +1,7 @@
 import Database from 'better-sqlite3';
 
 // Conexão com o banco de dados
-const db = new Database('./meu_db.sqlite');
+// const db = new Database('./meu_db.sqlite');
 
 // Função para realizar o login
 async function realiza_login(req, res) {
