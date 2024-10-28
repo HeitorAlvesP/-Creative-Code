@@ -1,7 +1,7 @@
 import * as create_user from '../model/create_user.js';
 import ValidaCPF from '../../public/js/valida_cpf.js';
 
-async function cria_conta(req, res){  
+ async function cria_conta(req, res){  
     try {
       const {email, nome, password, confirm_password, cpf} = req.body;
 
@@ -14,7 +14,8 @@ async function cria_conta(req, res){
         return res.status(400).json({ error: "CPF informado é inválido" });
       }
 
-      const existingUser = create_user.getUserByCpf(create_user.db, cpf); // Certifique-se de passar o db
+      const existingUser = create_user.getUserByCpf(create_user.db, cpf);
+    
       if (existingUser) {
         return res.status(400).json({ error: "CPF já cadastrado" });
       }

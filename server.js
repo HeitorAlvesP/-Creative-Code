@@ -6,6 +6,7 @@ import {cria_conta}from'./static/controllers/controllersCriaConta.js';
 import { realiza_login }from'./static/controllers/controllersLogin.js';
 import {bloqueia_menu}from'./static/controllers/controlersUserStatus.js';
 
+
 const app = express();
 connectDB();  
 
@@ -37,6 +38,7 @@ app.post('/criar_conta', cria_conta);
 
 
 app.listen(3000, () => {console.log('Rodando em porta 3000')});
+ 
 
 
 
