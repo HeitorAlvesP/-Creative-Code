@@ -1,4 +1,8 @@
 import Database from 'better-sqlite3';
+import connectDB from './conexao.js'; // Importe a função de conexão
+
+// Inicializa a conexão com o banco de dados
+const db = connectDB();
 
 // Função para criar a tabela de usuários
 const createUsersTable = (db) => {
@@ -15,6 +19,9 @@ const createUsersTable = (db) => {
 
   db.prepare(query).run(); // Executa a criação da tabela se ela não existir
 };
+
+// Chama a função para criar a tabela
+createUsersTable(db);
 
 // Função para inserir um usuário na tabela
 const insertUser = (db, userData) => {
@@ -43,10 +50,6 @@ export const getUserByCpf = (db, cpf) => {
     return null;
   }
 };
-
-// Exemplo de uso para inicializar o banco de dados
-const db = new Database('./database.sqlite');
-// createUsersTable(db);
 
 // Agrupa e exporta as funções
 const create_user = {

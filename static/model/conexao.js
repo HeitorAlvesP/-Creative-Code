@@ -25,4 +25,4 @@ const connectDB = () => {
 };
 
 // Exporta a função de conexão e a instância do banco de dados
-export { connectDB, db };
+export default { connectDB, db };
