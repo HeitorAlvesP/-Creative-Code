@@ -32,8 +32,14 @@ export const insertUser = (userData) => {
 
 
 export const getUserByEmail = (email) => {
-  const query = `SELECT * FROM users WHERE email = ?`;
-  return db.prepare(query).get(email); 
+  try {
+    const query = `SELECT * FROM users WHERE email = ?`;
+    return db.prepare(query).get(email); 
+  } catch (error) {
+    console.error("Erro ao buscar email:", error);
+    return null;
+  }
+
 };
 
 
